@@ -1,0 +1,123 @@
+# mimir-values.yaml
+mimir:
+  structuredConfig:
+    multitenancy_enabled: false
+    blocks_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir/blocks # 블록 스토리지 경로
+      bucket_store:
+        sync_dir: /data/mimir/tsdb-sync
+      tsdb:
+        dir: /data/mimir/tsdb-data # TSDB 경로
+    compactor:
+      data_dir: /data/mimir/compactor
+    ingester:
+      ring:
+        replication_factor: 1
+    store_gateway: {}
+    server:
+      http_listen_port: 9009
+
+ingester:
+  replicas: 1
+  zoneAwareReplication:
+    enabled: false
+storeGateway:
+  replicas: 1
+  zoneAwareReplication:
+    enabled: false
+compactor:
+  replicas: 1
+
+distributor:
+  enabled: true
+  replicas: 1
+querier:
+  enabled: true
+  replicas: 1
+queryFrontend:
+  enabled: true
+  replicas: 1
+queryScheduler:
+  enabled: false
+ruler:
+  enabled: false
+alertmanager:
+  enabled: false
+overridesExporter:
+  enabled: false
+rolloutOperator:
+  enabled: false
+
+minio:
+  enabled: false
+chunksCache:
+  enabled: false
+indexCache:
+  enabled: false
+metadataCache:
+  enabled: false
+resultsCache:
+  enabled: false
+
+nginx:
+  enabled: true
+  replicas: 1
+
+ingester:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+storeGateway:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+compactor:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+distributor:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+querier:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+queryFrontend:
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+nginx:
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+    requests:
+      cpu: "50m"
+      memory: "128Mi"

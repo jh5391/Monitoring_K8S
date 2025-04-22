@@ -1,0 +1,8 @@
+# values.yaml
+loki:
+  serviceName: loki.observability.svc.cluster.local
+  servicePort: 3100
+config:
+  clients:
+    - url: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+      tenant_id: "1"

@@ -1,0 +1,6 @@
+# prometheus-values.yaml
+prometheus:
+  prometheusSpec:
+    remoteWrite:
+    - url: "http://mimir-nginx.observability.svc.cluster.local:80/api/v1/push"
+    # Mimir 엔드포인트로 메트릭스 전송

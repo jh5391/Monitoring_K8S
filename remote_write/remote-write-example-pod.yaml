@@ -1,0 +1,14 @@
+# remote-write-example-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: remote-write-example
+  namespace: observability
+spec:
+  containers:
+  - name: remote-write-example
+    image: remote-write-example:latest
+    imagePullPolicy: Never # 로컬 이미지 사용
+    env:
+    - name: REMOTE_WRITE_URL
+      value: "http://mimir-nginx.observability.svc.cluster.local:80/api/v1/push"
