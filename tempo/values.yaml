@@ -1,0 +1,56 @@
+# Grafana Tempo Helm chart values for local execution
+# Reference: https://grafana.com/docs/tempo/latest/
+
+# Deploy Tempo in single binary mode
+mode: single-binary
+
+# Server configuration
+server:
+  http_listen_port: 3100
+
+# Storage configuration for traces
+storage:
+  trace:
+    backend: local
+    local:
+      path: /var/tempo/traces
+    wal:
+      path: /var/tempo/wal
+
+# Liveness and readiness probes
+livenessProbe:
+  httpGet:
+    path: /ready
+    port: 3100
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 3100
+  initialDelaySeconds: 20
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "200m"
+    memory: "256Mi"
+
+# Persistence for local storage
+persistence:
+  enabled: true
+  size: 10Gi
+
+# Enable usage reporting (optional, can be disabled)
+reportingEnabled: false

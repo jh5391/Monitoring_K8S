@@ -28,6 +28,9 @@ helm install grafana grafana/grafana -n observability -f values.yaml
 
 # Mimir 설치 (선택사항)
 helm install mimir grafana/mimir-distributed -n observability -f values.yaml
+
+# Tempo 설치
+helm install tempo grafana/tempo -n observability -f values.yaml
 ```
 
 ## 3. 포트 포워딩 설정
@@ -40,6 +43,8 @@ kubectl port-forward prometheus-kube-prometheus-prometheus-0 9090:9090 -n observ
 
 # Loki 접속 (http://localhost:3100)
 kubectl port-forward -n observability svc/loki 3100:3100
+
+kubectl port-forward svc/tempo -n observability 3100:3100
 ```
 
 ## 4. 테스트 로그 생성 (선택사항)
